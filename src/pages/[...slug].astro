@@ -1,0 +1,51 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+
+import {
+  getLiveStory,
+  storyblokEditable,
+  useStoryblokApi,
+} from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+export const prerender = false;
+
+const slug = Astro.params.slug;
+let story;
+
+try {
+  const liveStory = await getLiveStory(Astro);
+
+  if (liveStory) {
+    story = liveStory;
+  } else {
+    const storyblokApi = useStoryblokApi();
+    const { data } = await storyblokApi.get(`cdn/stories/${slug || "home"}`, {
+      version:
+        import.meta.env.PUBLIC_ENV === "production" ? "published" : "draft",
+      // "production"
+    });
+
+    if (!data) {
+      return Astro.redirect("/404");
+    }
+
+    story = data.story;
+  }
+} catch (error) {
+  console.log(error);
+  return Astro.redirect("/404");
+}
+---
+
+<Layout {...storyblokEditable(story.content)}>
+  <StoryblokComponent blok={story.content} />
+</Layout>
+
+---
+<script>
+  document.addEventListener("storyblok-live-preview-updated", () => {
+    console.log("Live preview: body updated");
+  });
+</script>
