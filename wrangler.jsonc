@@ -7,25 +7,25 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "dev": {
     "local_protocol": "https",
-    "port": 8787
+    "port": 8787,
   },
   "kv_namespaces": [
     {
       "binding": "STORYBLOK_CACHE",
-      "id": "84f3cc9a70354ce4bb56329c2964201a"
-    }
+      "id": "84f3cc9a70354ce4bb56329c2964201a",
+    },
   ],
   "routes": [
     {
       "pattern": "astroprod.gratefulme.app",
-      "custom_domain": true
-    }
-  ]
+      "custom_domain": true,
+    },
+  ],
 }

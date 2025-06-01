@@ -9,7 +9,9 @@
     "deploy:staging": "PUBLIC_ENV=staging astro build && wrangler deploy --config wrangler.staging.jsonc",
     "deploy:prod": "PUBLIC_ENV=production astro build && wrangler deploy --config wrangler.jsonc",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "wrangler:types": "wrangler types --env-interface CloudflareEnv src/cloudflare-env.d.ts",
+    "prettier:write": "prettier . --write"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.3",

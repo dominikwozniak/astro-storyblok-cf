@@ -13,7 +13,7 @@ export const prerender = false;
 const slug = Astro.params.slug || "home";
 let story;
 
-const isProduction = import.meta.env.PUBLIC_ENV === 'production';
+const isProduction = import.meta.env.PUBLIC_ENV === "production";
 
 try {
   const liveStory = await getLiveStory(Astro);
@@ -34,28 +34,29 @@ try {
   }
 } catch (error) {
   console.log(error);
-  Astro.response.headers.set('Cache-Control', 'private, no-cache');
+  Astro.response.headers.set("Cache-Control", "private, no-cache");
   return Astro.redirect("/404");
 }
-
 
 if (isProduction) {
   // Cache in CDN for 1 hour, browser for 5 minutes.
   // Allow serving stale version from CDN during background revalidation for next 24 hours.
-  Astro.response.headers.set('Cache-Tag',`story:${slug},all-stories`)
+  Astro.response.headers.set("Cache-Tag", `story:${slug},all-stories`);
   Astro.response.headers.set(
     "Cache-Control",
-    "public, s-maxage=3600, max-age=300, stale-while-revalidate=86400"
+    "public, s-maxage=3600, max-age=300, stale-while-revalidate=86400",
   );
 } else {
   // For dev/preview environments, don't cache or cache very briefly.
   Astro.response.headers.set(
     "Cache-Control",
-    "no-store, no-cache, must-revalidate, proxy-revalidate"
+    "no-store, no-cache, must-revalidate, proxy-revalidate",
   );
-  Astro.response.headers.set("CDN-Cache-Control", "public, max-age=3600, stale-while-revalidate=86400");
+  Astro.response.headers.set(
+    "CDN-Cache-Control",
+    "public, max-age=3600, stale-while-revalidate=86400",
+  );
 }
-
 ---
 
 <Layout {...storyblokEditable(story.content)}>
