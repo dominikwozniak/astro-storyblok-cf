@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "PUBLIC_ENV=development astro dev",
     "build": "astro build",
-    "build:preview": "PUBLIC_ENV=preview astro build && wrangler dev",
+    "build:preview": "PUBLIC_ENV=preview astro build && wrangler dev --config wrangler.jsonc",
     "deploy:staging": "PUBLIC_ENV=staging astro build && wrangler deploy --config wrangler.staging.jsonc",
-    "deploy:prod": "PUBLIC_ENV=production astro build && wrangler deploy",
+    "deploy:prod": "PUBLIC_ENV=production astro build && wrangler deploy --config wrangler.jsonc",
     "preview": "astro preview",
     "astro": "astro"
   },

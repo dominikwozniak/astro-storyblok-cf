@@ -10,13 +10,12 @@ import cloudflare from "@astrojs/cloudflare";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
 export default defineConfig({
+  site: "https://astroprod.gratefulme.app",
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_ACCESS_TOKEN,
       livePreview: process.env.PUBLIC_ENV !== "production",
-      // bridge: true, // for preview
       bridge: process.env.PUBLIC_ENV !== "production",
-      // bridge: false,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
